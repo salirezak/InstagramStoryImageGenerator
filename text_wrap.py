@@ -11,7 +11,7 @@ def line_wrap(line: str, max_len: int) -> str:
                 line = line[max_len:].strip()
             # start new line
             else:
-                lines.append(line)
+                if line: lines.append(line)
                 line = word
         # add word to line
         else:
@@ -19,8 +19,7 @@ def line_wrap(line: str, max_len: int) -> str:
             line = line.strip()
 
     # add last line
-    if line:
-        lines.append(line)
+    if line: lines.append(line)
 
     return '\n'.join(lines)
 
