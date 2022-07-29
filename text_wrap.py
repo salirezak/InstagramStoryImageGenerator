@@ -15,3 +15,11 @@ def line_wrap(line: str, max_len: int) -> str:
         lines.append(line)
 
     return '\n'.join(lines)
+
+
+
+def text_wrap(text: str, max_len: int) -> str:
+    lines = text.strip().split('\n')
+    lines = map(lambda line: line_wrap(line, max_len), lines)
+
+    return '\n'.join(lines)
