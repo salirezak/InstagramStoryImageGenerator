@@ -2,8 +2,7 @@ from PIL import ImageFont
 
 
 
-def line_wrap(line: str, max_width: int) -> str:
-    font = ImageFont.truetype('fonts/Vazir.ttf', 10, encoding='unic')
+def line_wrap(line: str, max_width: int, font: ImageFont) -> str:
     words = line.strip().split()
     lines, line = [], ''
 
@@ -37,8 +36,12 @@ def line_wrap(line: str, max_width: int) -> str:
     return '\n'.join(lines)
 
 
-def text_wrap(text: str, max_width: int) -> str:
+def text_wrap(text: str, max_wh: int) -> str:
+    font = ImageFont.truetype('fonts/Vazir.ttf', 10, encoding='unic')
     lines = text.strip().split('\n')
-    lines = map(lambda line: line_wrap(line, max_width), lines)
+    lines = map(lambda line: line_wrap(line, max_wh[0], font), lines)
+    text = '\n'.join(lines)
 
-    return '\n'.join(lines)
+    if font.getsize_multiline(text, 'rtl', 10, 'fa')[1] <= max_wh[1]:
+        return text
+    raise Exception('Text is too long')
