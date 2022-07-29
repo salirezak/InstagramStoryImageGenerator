@@ -1,14 +1,19 @@
-def line_wrap(line: str, max_len: int) -> str:
+from PIL import ImageFont
+
+
+
+def line_wrap(line: str, max_width: int) -> str:
+    font = ImageFont.truetype('fonts/Vazir.ttf', 10, encoding='unic')
     words = line.strip().split()
     lines, line = [], ''
 
     while words:
         word = words.pop(0)
-        if len(line + ' ' + word) > max_len:
+        if font.getsize(line + ' ' + word)[0] > max_width:
             # break line and start new line
-            if len(line) > max_len:
-                lines.append(line[:max_len].strip())
-                line = line[max_len:].strip()
+            if font.getsize(line)[0] > max_width:
+                lines.append(line[:max_width].strip())
+                line = line[max_width:].strip()
             # start new line
             else:
                 if line: lines.append(line)
@@ -21,9 +26,9 @@ def line_wrap(line: str, max_len: int) -> str:
     # add last line
     while line:
         # break line and start new line
-        if len(line) > max_len:
-                lines.append(line[:max_len].strip())
-                line = line[max_len:].strip()
+        if font.getsize(line)[0] > max_width:
+                lines.append(line[:max_width].strip())
+                line = line[max_width:].strip()
         # add the true last line
         else:
             if line: lines.append(line)
@@ -32,8 +37,8 @@ def line_wrap(line: str, max_len: int) -> str:
     return '\n'.join(lines)
 
 
-def text_wrap(text: str, max_len: int) -> str:
+def text_wrap(text: str, max_width: int) -> str:
     lines = text.strip().split('\n')
-    lines = map(lambda line: line_wrap(line, max_len), lines)
+    lines = map(lambda line: line_wrap(line, max_width), lines)
 
     return '\n'.join(lines)
