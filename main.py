@@ -12,3 +12,6 @@ class StoryImageGenerator:
 
     def generate_background(self):
         return background(self.story_wh, self.story_color)
+
+    def show(self) -> None:
+        self.background.show()
