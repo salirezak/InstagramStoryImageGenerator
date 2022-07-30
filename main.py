@@ -1,6 +1,7 @@
 from images import background, text_box, merge
 from font import Font
 from text_wrap import text_wrap
+import io
 
 
 
@@ -66,3 +67,11 @@ class StoryImageGenerator:
 
     def show(self) -> None:
         self.story_image.show()
+
+    def save(self, path: str) -> None:
+        self.story_image.save(path, format="PNG")
+
+    def bytes(self) -> bytes:
+        tmp = io.BytesIO()
+        self.story_image.save(tmp, format="PNG")
+        return tmp.getvalue()
