@@ -1,4 +1,4 @@
-from images import background, text_box
+from images import background, text_box, merge
 from font import Font
 from text_wrap import text_wrap
 
@@ -29,6 +29,7 @@ class StoryImageGenerator:
         self.font = self.get_font()
         self.background = self.generate_background()
         self.text_box = self.generate_text_box()
+        self.story_image = merge(self.background, self.text_box)
 
     def get_font(self) -> Font:
         return Font(self.font_name, self.font_size, spacing=self.lines_spacing, align=self.text_align)
@@ -63,4 +64,4 @@ class StoryImageGenerator:
         return text_box(self.story_wh, self.text_box_wh(), self.box_color, self.box_radius, self.box_shadow_radius, self.box_shadow_color)
 
     def show(self) -> None:
-        self.background.show()
+        self.story_image.show()
