@@ -10,6 +10,8 @@ class Font:
         self.font_size = font_size
         self.spacing = spacing
 
+        self.font = self.get_font()
+
     def get_font(self) -> ImageFont:
         return ImageFont.truetype(self.font_path, self.font_size, encoding='unic')
 
@@ -20,8 +22,8 @@ class Font:
         self.direction = 'rtl' if self.language == 'fa' else 'ltr'
 
     def get_size(self, text: str) -> tuple:
-        return self.get_font().getsize(text)
+        return self.font.getsize(text)
 
     def get_size_multiline(self, text: str) -> tuple:
         self.lang_dir(text)
-        return self.get_font().getsize_multiline(text, self.direction, self.spacing, self.language)
+        return self.font.getsize_multiline(text, self.direction, self.spacing, self.language)
