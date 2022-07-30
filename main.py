@@ -30,6 +30,7 @@ class StoryImageGenerator:
         self.background = self.generate_background()
         self.text_box = self.generate_text_box()
         self.story_image = merge(self.background, self.text_box)
+        self.story_image = self.font.draw_multiline_text(self.story_image, self.wrapped_text(), (self.story_wh[0]/2, self.story_wh[1]/2))
 
     def get_font(self) -> Font:
         return Font(self.font_name, self.font_size, spacing=self.lines_spacing, align=self.text_align)
